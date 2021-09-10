@@ -34,26 +34,25 @@ export default class VigenereCipheringMachine {
     for (let i = 0, j = 0; i < message.length; i++) {
       if (this.alphabet.indexOf(message[i]) == -1) {
         convertedKey += message[i];
+        continue;
       }
-      else {
-        if (j >= key.length) {
-          j = 0;
-        }
-        convertedKey += key[j];
-        j++;
+      if (j >= key.length) {
+        j = 0;
       }
+      convertedKey += key[j];
+      j++;
     }
     for (let i = 0; i < message.length; i++) {
-      let shift = this.alphabet.indexOf(message[i]) + this.alphabet.indexOf(convertedKey[i]);
       if (this.alphabet.indexOf(message[i]) == -1) {
         encrypted += message[i];
+        continue;
       }
-      else if (shift <= 25) {
+      let shift = this.alphabet.indexOf(message[i]) + this.alphabet.indexOf(convertedKey[i]);
+      if (shift <= 25) {
         encrypted += this.alphabet[shift];
+        continue;
       }
-      else {
-        encrypted += this.alphabet[shift - 26];
-      }
+      encrypted += this.alphabet[shift - 26];
     }
     if (this.machine) {
       return encrypted.split("").reverse().join("");
@@ -71,26 +70,25 @@ export default class VigenereCipheringMachine {
     for (let i = 0, j = 0; i < encryptedMessage.length; i++) {
       if (this.alphabet.indexOf(encryptedMessage[i]) == -1) {
         convertedKey += encryptedMessage[i];
+        continue;
       }
-      else {
-        if (j >= key.length) {
-          j = 0;
-        }
-        convertedKey += key[j];
-        j++;
+      if (j >= key.length) {
+        j = 0;
       }
+      convertedKey += key[j];
+      j++;
     }
     for (let i = 0; i < encryptedMessage.length; i++) {
-      let shift = this.alphabet.indexOf(encryptedMessage[i]) - this.alphabet.indexOf(convertedKey[i]);
       if (this.alphabet.indexOf(encryptedMessage[i]) == -1) {
         decrypted += encryptedMessage[i];
+        continue;
       }
-      else if (shift < 0) {
+      let shift = this.alphabet.indexOf(encryptedMessage[i]) - this.alphabet.indexOf(convertedKey[i]);
+      if (shift < 0) {
         decrypted += this.alphabet[shift + 26];
+        continue;
       }
-      else {
-        decrypted += this.alphabet[shift];
-      }
+      decrypted += this.alphabet[shift];
     }
     if (this.machine) {
       return decrypted.split("").reverse().join("");
