@@ -18,15 +18,11 @@ export default {
       this.chains = [];
       throw new Error("You can't remove incorrect link!");
     }
-    else {
-      this.chains.splice(position-1, 1);
-    }
+    this.chains.splice(position-1, 1);
     return this;
   },
   reverseChain() {
-    if (this.getLength() > 1) {
-      this.chains.reverse();
-    }
+    this.chains.reverse();
     return this;
   },
   finishChain() {
